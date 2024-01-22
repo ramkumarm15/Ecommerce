@@ -9,6 +9,7 @@ using Microsoft.OpenApi.Extensions;
 using Microsoft.OpenApi.Models;
 using OnlineShopping.Repository;
 using OnlineShopping.Service;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -114,14 +115,22 @@ if (app.Environment.IsDevelopment())
 app.UseSwagger();
 app.UseSwaggerUI();
 
+app.UseMetricServer();
+
 app.UseCors("EnableCors");
 
 app.UseHttpsRedirection();
+
+app.UseHttpMetrics();
 
 app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapMetrics();
+    endpoints.MapControllers();
+});
 
 app.Run();
