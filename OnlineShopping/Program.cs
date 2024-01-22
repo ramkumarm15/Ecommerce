@@ -26,7 +26,7 @@ builder.Services.AddSwaggerGen(options =>
     options.SwaggerDoc("v1", new OpenApiInfo()
     {
         Version = "v1",
-        Title = "Thrift Shop API"
+        Title = "Ecommerce Shop API"
     });
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
@@ -122,6 +122,8 @@ app.UseCors("EnableCors");
 app.UseHttpsRedirection();
 
 app.UseHttpMetrics();
+
+app.UseRouting();
 
 app.UseAuthentication();
 
